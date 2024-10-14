@@ -6,9 +6,9 @@ name: publish package
 on:
   push:
     branches:
-    - main
+      - main
     paths:
-    - package.json
+      - package.json
 
 jobs:
   publish-gpr:
@@ -24,8 +24,10 @@ jobs:
           registry-url: https://registry.npmjs.org/
       - run: |
           cp package.json dist/package.json
-          cp Readme.md dist/Readme.md
+          cp README.md dist/README.md
           cd dist
           npm publish
+          sed -i 's/"name": "/"name": "@anyversion\//' package.json
+          npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

@@ -1,8 +1,9 @@
 # elecpack
 
-## Install 
+## Install
+
 ```bash
-npm install elecpack
+npm install @anyversion/elecpack
 ```
 
 ## Usage
@@ -10,7 +11,7 @@ npm install elecpack
 [Demo](https://github.com/gityoog/elecpack-demo)
 
 ```typescript
-import { ElecpackBuilder } from 'elecpack'
+import { ElecpackBuilder } from '@anyversion/elecpack'
 
 const builder = new ElecpackBuilder({
   main: {
@@ -48,16 +49,16 @@ const builder = new ElecpackBuilder({
 
   // for worker or other files
   files?: Record<string, {
-    context: string 
-    entry: entry 
+    context: string
+    entry: entry
     assets?: string | { from: string, to: string }
     define?: Record<string, any>
-    configFile?: string | string[] 
+    configFile?: string | string[]
     bytecode?: WebpackBuilder.Bytecode
-    skipDefConfigFile?: boolean 
+    skipDefConfigFile?: boolean
   }> // use ElecpackRuntime.getFiles(name) to get file
 
-  // config for electron-builder 
+  // config for electron-builder
   electronBuilder?: {
     name: 'elecpack-example', // output name
     version: '1.0.0', // output version
@@ -75,16 +76,16 @@ builder.startBuild()
 ```
 
 ```typescript
-import ElecpackRuntime from 'elecpack/runtime'
+import ElecpackRuntime from "@anyversion/elecpack/runtime";
 
 const bw = new BrowserWindow({
   webPreferences: {
-    preload: ElecpackRuntime.getPreload('preload')
-  }
-})
-ElecpackRuntime.load({ name: 'demo', hash: 'hash' }, bw)
+    preload: ElecpackRuntime.getPreload("preload"),
+  },
+});
+ElecpackRuntime.load({ name: "demo", hash: "hash" }, bw);
 
-console.log(ElecpackRuntime.define['key'])
+console.log(ElecpackRuntime.define["key"]);
 
-new Worker(ElecpackRuntime.getFiles('test-worker'))
+new Worker(ElecpackRuntime.getFiles("test-worker"));
 ```
